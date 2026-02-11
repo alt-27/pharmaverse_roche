@@ -1,0 +1,415 @@
+Running DS domain creation script...
+
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 12 
+
+Script completed without errors.
+
+  There is a binary version available but the source version is later:
+        binary source needs_compilation
+admiral  1.0.2  1.4.1             FALSE
+
+Running ADSL creation script...
+
+Inputs loaded.
+dm: 306 rows
+suppdm: 1197 rows
+ex: 591 rows
+ds: 850 rows
+ae: 1191 rows
+vs: 29643 rows
+
+# A tibble: 850 × 13
+   STUDYID   DOMAIN USUBJID DSSEQ DSSPID DSTERM DSDECOD DSCAT VISITNUM VISIT DSDTC DSSTDTC
+   <chr>     <chr>  <chr>   <int> <chr>  <chr>  <chr>   <chr>    <dbl> <chr> <chr> <chr>  
+ 1 CDISCPIL… DS     01-701…     1 <NA>   RANDO… RANDOM… PROT…        3 BASE… 2014… 2014-0…
+ 2 CDISCPIL… DS     01-701…     2 <NA>   PROTO… COMPLE… DISP…       13 WEEK… 2014… 2014-0…
+ 3 CDISCPIL… DS     01-701…     3 <NA>   FINAL… FINAL … OTHE…       13 WEEK… 2014… 2014-0…
+ 4 CDISCPIL… DS     01-701…     1 <NA>   RANDO… RANDOM… PROT…        3 BASE… 2012… 2012-0…
+ 5 CDISCPIL… DS     01-701…     2 24     ADVER… ADVERS… DISP…        5 WEEK… 2012… 2012-0…
+ 6 CDISCPIL… DS     01-701…     3 <NA>   FINAL… FINAL … OTHE…        5 WEEK… 2012… 2012-0…
+ 7 CDISCPIL… DS     01-701…     4 <NA>   FINAL… FINAL … OTHE…      201 RETR… 2013… 2013-0…
+ 8 CDISCPIL… DS     01-701…     1 <NA>   RANDO… RANDOM… PROT…        3 BASE… 2013… 2013-0…
+ 9 CDISCPIL… DS     01-701…     2 <NA>   PROTO… COMPLE… DISP…       13 WEEK… 2014… 2014-0…
+10 CDISCPIL… DS     01-701…     3 <NA>   FINAL… FINAL … OTHE…       13 WEEK… 2014… 2014-0…
+# ℹ 840 more rows
+# ℹ 1 more variable: DSSTDY <dbl>
+# ℹ Use `print(n = ...)` to see more rows
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 12 
+
+Script completed without errors.
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 12 
+
+Script completed without errors.
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 12 
+
+Script completed without errors.
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 12 
+
+Script completed without errors.
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 11 
+
+Script completed without errors.
+Running ADSL creation script...
+
+Inputs loaded.
+dm: 306 rows
+suppdm: 1197 rows
+ex: 591 rows
+ds: 850 rows
+ae: 1191 rows
+vs: 29643 rows
+
+
+  There is a binary version available but the source version is later:
+         binary source needs_compilation
+metacore  0.1.2  0.2.1             FALSE
+
+
+  There is a binary version available but the source version is later:
+          binary source needs_compilation
+metatools  0.1.5  0.2.0             FALSE
+
+
+  There is a binary version available but the source version is later:
+       binary source needs_compilation
+xportr  0.4.0  0.5.0             FALSE
+
+Running ADSL creation script...
+
+Inputs loaded.
+dm: 306 rows
+suppdm: 1197 rows
+ex: 591 rows
+ds: 850 rows
+ae: 1191 rows
+vs: 29643 rows
+
+
+ADSL created successfully.
+Subjects: 306 
+Columns: 26 
+Saved: output/adsl.csv and output/adsl.rds
+
+Script completed without errors.
+          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1335549 71.4    2083528 111.3  2083528 111.3
+Vcells 3946597 30.2   12255594  93.6 11825684  90.3
+: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 12 
+
+Script completed without errors.
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Running DS domain creation script...
+
+Inputs loaded.
+ds_raw rows: 850  cols: 13 
+dm rows: 306  cols: 26 
+
+OAK ID variables generated.
+
+DSTERM derived from IT.DSTERM.
+
+DSDECOD derived using OTHERSP/IT.DSDECOD logic.
+DSCAT derived using IT.DSDECOD == RANDOMIZED rule.
+
+Core identifiers (STUDYID/DOMAIN/USUBJID) added.
+
+DSSEQ derived.
+
+Using DM reference date column for study day: RFXSTDTC 
+DSSTDY derived.
+
+Final DS dataset assembled with required variables.
+
+Outputs saved:
+ - ds.csv
+ - ds.rds
+
+DS domain successfully created.
+Records: 850 
+Columns: 11 
+
+Script completed without errors.
+Running ADSL creation script...
+
+Inputs loaded.
+dm: 306 rows
+suppdm: 1197 rows
+ex: 591 rows
+ds: 850 rows
+ae: 1191 rows
+vs: 29643 rows
+
+
+  There is a binary version available but the source version is later:
+         binary source needs_compilation
+metacore  0.1.2  0.2.1             FALSE
+
+
+  There is a binary version available but the source version is later:
+          binary source needs_compilation
+metatools  0.1.5  0.2.0             FALSE
+
+
+  There is a binary version available but the source version is later:
+       binary source needs_compilation
+xportr  0.4.0  0.5.0             FALSE
+
+Running ADSL creation script...
+
+Inputs loaded.
+dm: 306 rows
+suppdm: 1197 rows
+ex: 591 rows
+ds: 850 rows
+ae: 1191 rows
+vs: 29643 rows
+
+
+ADSL created successfully.
+Subjects: 306 
+Columns: 26 
+Saved: output/adsl.csv and output/adsl.rds
+
+Script completed without errors.
+          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1335549 71.4    2083528 111.3  2083528 111.3
+Vcells 3946597 30.2   12255594  93.6 11825684  90.3
+Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1335549 71.4    2083528 111.3  2083528 111.3
+Vcells 3946597 30.2   12255594  93.6 11825684  90.3
+ without errors.
+          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1335549 71.4    2083528 111.3  2083528 111.3
+Vcells 3946597 30.2   12255594  93.6 11825684  90.3

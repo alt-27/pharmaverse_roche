@@ -1,0 +1,150 @@
+Running ADSL creation script...
+
+Inputs loaded.
+DM: 306 subjects
+
+
+ADSL created successfully.
+Subjects: 306 
+Saved: output/adsl.csv and output/adsl.rds
+
+Script completed without errors.
+unning ADSL creation script...
+
+Inputs loaded.
+DM: 306 subjects
+
+
+ADSL created successfully.
+Subjects: 306 
+Saved: output/adsl.csv and output/adsl.rds
+
+Script completed without errors.
+
+  There are binary versions available but the sourc  There are binary v:
+          binary source needs_compilation
+lifecycle  1.0.4  1.0.5             FALSE
+vctrs      0.6.5  0.7.1              TRUE
+V8         4.4.2  8.0.1              TRUE
+reactR     0.5.0  0.6.1             FALSE
+rlang      1.1.3  1.1.7              TRUE
+dplyr      1.1.4  1.2.0              TRUE
+bigD       0.2.0  0.3.1             FALSE
+bitops     1.0-7  1.0-9              TRUE
+fs         1.6.3  1.6.6              TRUE
+reactable  0.4.4  0.4.5             FALSE
+cards      0.1.0  0.7.1             FALSE
+cardx      0.1.0  0.3.2             FALSE
+cli        3.6.2  3.6.5              TRUE
+glue       1.7.0  1.8.0              TRUE
+gt        0.10.1  1.3.0             FALSE
+gtsummary  1.7.2  2.5.0             FALSE
+
+  Binaries will be installed
+package ‘vctrs’ successfully unpacked and MD5 spackage ‘vcWarning in install.packages :
+  cannot remove prior installation of package ‘vctrcann
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\vctrs\libs\x64\vctrs.dll to C:\Users\Alicia\AppData\Local\R\win-libr
+Warning in install.packages :
+  restored ‘vctrs’
+package ‘V8’ successfully unpacked and MD5 sumspackage �package ‘rlang’ successfully unpacked and MD5 spackage ‘rlWarning in install.packages :
+  cannot remove prior installation of package ‘rlancann
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\rlang\libs\x64\rlang.dll to C:\Users\Alicia\AppData\Local\R\win-libr
+Warning in install.packages :
+  restored ‘rlang’
+package ‘dplyr’ successfully unpacked and MD5 spackage ‘dpWarning in install.packages :
+  cannot remove prior installation of package ‘dplycann
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\dplyr\libs\x64\dplyr.dll to C:\Users\Alicia\AppData\Local\R\win-libr
+Warning in install.packages :
+  restored ‘dplyr’
+package ‘bitops’ successfully unpacked and MD5 package ‘bitpackage ‘fs’ successfully unpacked and MD5 sumspackage �package ‘juicyjuice’ successfully unpacked and package ‘juicyjupackage ‘cli’ successfully unpacked and MD5 sumpackage ‘Warning in install.packages :
+  cannot remove prior installation of package ‘cli�ca
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\cli\libs\x64\cli.dll to C:\Users\Alicia\AppData\Local\R\win-
+Warning in install.packages :
+  restored ‘cli’
+package ‘glue’ successfully unpacked and MD5 supackage ‘gWarning in install.packages :
+  cannot remove prior installation of package ‘gluecan
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\glue\libs\x64\glue.dll to C:\Users\Alicia\AppData\Local\R\win-li
+Warning in install.packages :
+  restored ‘glue’
+
+The downloaded binary packages are in
+	C:\Users\AlThe downloaded binary packages are in
+	C:\Users\Alici
+Warning in install.packages :
+  installation of package ‘cards’ had non-zero exinstallat
+Warning in install.packages :
+  installation of package ‘cardx’ had non-zero exinstallat
+Warning in install.packages :
+  installation of package ‘gt’ had non-zero exit instal
+Warning in install.packages :
+  installation of package ‘gtsummary’ had non-zerinstallation 
+
+  There are binary versions available but the sourc  There are binary v:
+          binary source needs_compilation
+vctrs      0.6.5  0.7.1              TRUE
+rlang      1.1.3  1.1.7              TRUE
+dplyr      1.1.4  1.2.0              TRUE
+fs         1.6.3  1.6.6              TRUE
+cards      0.1.0  0.7.1             FALSE
+cardx      0.1.0  0.3.2             FALSE
+cli        3.6.2  3.6.5              TRUE
+glue       1.7.0  1.8.0              TRUE
+gt        0.10.1  1.3.0             FALSE
+gtsummary  1.7.2  2.5.0             FALSE
+
+  Binaries will be installed
+package ‘vctrs’ successfully unpacked and MD5 spackage ‘vcWarning in install.packages :
+  cannot remove prior installation of package ‘vctrcann
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\vctrs\libs\x64\vctrs.dll to C:\Users\Alicia\AppData\Local\R\win-libr
+Warning in install.packages :
+  restored ‘vctrs’
+package ‘rlang’ successfully unpacked and MD5 spackage ‘rlWarning in install.packages :
+  cannot remove prior installation of package ‘rlancann
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\rlang\libs\x64\rlang.dll to C:\Users\Alicia\AppData\Local\R\win-libr
+Warning in install.packages :
+  restored ‘rlang’
+package ‘dplyr’ successfully unpacked and MD5 spackage ‘dpWarning in install.packages :
+  cannot remove prior installation of package ‘dplycann
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\dplyr\libs\x64\dplyr.dll to C:\Users\Alicia\AppData\Local\R\win-libr
+Warning in install.packages :
+  restored ‘dplyr’
+package ‘fs’ successfully unpacked and MD5 sumspackage �package ‘cli’ successfully unpacked and MD5 sumpackage ‘Warning in install.packages :
+  cannot remove prior installation of package ‘cli�ca
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\cli\libs\x64\cli.dll to C:\Users\Alicia\AppData\Local\R\win-
+Warning in install.packages :
+  restored ‘cli’
+package ‘glue’ successfully unpacked and MD5 supackage ‘gWarning in install.packages :
+  cannot remove prior installation of package ‘gluecan
+Warning in install.packages :
+  problem copying C:\Users\Alicia\AppData\Local\R\winproblem copying C:\Users\Alicia\AppData\Local\R\win-library\4.2\00LOCK\glue\libs\x64\glue.dll to C:\Users\Alicia\AppData\Local\R\win-li
+Warning in install.packages :
+  restored ‘glue’
+
+The downloaded binary packages are in
+	C:\Users\AlThe downloaded binary packages are in
+	C:\Users\Alici
+Warning in install.packages :
+  installation of package ‘cards’ had non-zero exinstallat
+Warning in install.packages :
+  installation of package ‘gt’ had non-zero exit instal
+Warning in install.packages :
+  installation of package ‘cardx’ had non-zero exinstallat
+Warning in install.packages :
+  installation of package ‘gtsummary’ had non-zerinstallation 
+[1] "C:/Users/Alicia/Documents/Roche/question_2_adam"
+
+  There is a binary version available but the sourc  There is a binar:
+                binary source needs_compilation
+pharmaverseadam  0.2.0  1.2.0             FALSE
+
+pharmaverseadam  0.2.0  1.2.0             FALSE
+
