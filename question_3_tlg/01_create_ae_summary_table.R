@@ -4,6 +4,11 @@ library(gtsummary)
 library(gt)
 library(pharmaverseadam)
 
+## ---- log file ----------------------------------------------------------------
+sink("summary_table_log.txt", split = TRUE)
+cat("running summary table creation script...\n\n")
+
+
 adsl <- pharmaverseadam::adsl
 adae <- pharmaverseadam::adae
 
@@ -40,3 +45,6 @@ tbl_teae
 # Save as HTML -------------------------------------------------
 gt_tbl <- as_gt(tbl_teae)
 gtsave(gt_tbl, "outputs/ae_summary_table.html")
+
+cat("\nscript completed without errors.\n")
+sink()

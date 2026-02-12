@@ -1,0 +1,4 @@
+running summary table creation script...
+
+
+script completed without errors.
