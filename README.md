@@ -70,6 +70,8 @@ Folder: [question_3_tlg](question_3_tlg)
 
 This section focuses on generating regulatory-style outputs from _ADAE_ and _ADSL_ from pharmaverse.
 
+Log files are included for all scripts to demonstrate error-free execution.
+
 ### Part 1 – AE Summary Table
 Script: `01_create_ae_summary_table.R`
 
