@@ -1,56 +1,42 @@
-# ============================================================
-# Question 3 – TEAE Summary Table (FDA Table 10 Style)
-# ============================================================
-
-sink("01_create_ae_summary_table.log", split = TRUE)
-
-# ---- Libraries ----
+# Load libraries & data --------------------------------------
 library(dplyr)
 library(gtsummary)
 library(gt)
 library(pharmaverseadam)
 
-# ---- Create output directory ----
-if (!dir.exists("outputs")) dir.create("outputs")
-
-# ---- Load data ----
-adae <- pharmaverseadam::adae
 adsl <- pharmaverseadam::adsl
+adae <- pharmaverseadam::adae
 
-# ---- Treatment denominators ----
-denoms <- adsl %>%
-  filter(!is.na(ACTARM)) %>%
-  count(ACTARM, name = "N")
+# Output folder ------------------------------------------------
+if (!dir.exists("outputs")) dir.create("outputs", recursive = TRUE)
 
-# ---- Filter Treatment-Emergent AEs ----
+# Pre-processing ----------------------------------------------
+# TEAEs only
 teae <- adae %>%
-  filter(TRTEMFL == "Y")
+  filter(
+    TRTEMFL == "Y",
+  ) 
 
-# ---- Create subject-level dataset (one row per subject per term) ----
-teae_subj <- teae %>%
-  distinct(USUBJID, ACTARM, AETERM)
+# Filter the columns which matters (AETERM, AESOC, ACTARM, TRTEMFL)
+teae <- teae %>%
+  select(AETERM, AESOC, USUBJID, ACTARM, TRTEMFL)
 
-# ---- Create Table using gtsummary ----
-tbl_ae <- teae_subj %>%
-  tbl_summary(
+# Build gtsummary table ---------------------------------------
+
+# AESOC is the big group and AETERM is the subgroup, descending order count and bracket percentage of ACTARM
+tbl_teae <- teae %>% 
+  tbl_hierarchical(
+    variables = c(AESOC, AETERM),
     by = ACTARM,
-    include = AETERM,
-    statistic = all_categorical() ~ "{n} ({p}%)",
-    percent = "column",
-    missing = "no"
+    id = USUBJID,
+    denominator = adsl,
+    overall_row = TRUE,
+    label = "..ard_hierarchical_overall.." ~ "Treatment Emergent AEs"
   ) %>%
-  add_overall(last = TRUE) %>%
-  modify_header(label = "**Adverse Event Term**") %>%
-  bold_labels()
+  add_overall(last = TRUE)
 
-# ---- Convert to gt for formatting ----
-gt_table <- tbl_ae %>%
-  as_gt() %>%
-  tab_header(
-    title = md("**Treatment-Emergent Adverse Events (Safety Population)**")
-  )
+tbl_teae
 
-# ---- Save HTML ----
-gtsave(gt_table, "outputs/ae_summary_table.html")
-
-sink()
+# Save as HTML -------------------------------------------------
+gt_tbl <- as_gt(tbl_teae)
+gtsave(gt_tbl, "outputs/ae_summary_table.html")
