@@ -64,10 +64,10 @@ ds <- ds %>%
 ds <- ds %>%
   mutate(
     DSDTC = {
-      d <- suppressWarnings(mdy(ds_raw$DSDTCOL))
+      d <- mdy(ds_raw$DSDTCOL)
       t_raw <- trimws(as.character(ds_raw$DSTMCOL))
       has_t <- !is.na(t_raw) & t_raw != ""
-      t <- suppressWarnings(hm(t_raw))
+      t <- hm(t_raw)
       
       ifelse(
         !is.na(d) & has_t & !is.na(t),
@@ -113,6 +113,23 @@ ds <- ds %>%
     # VISITNUM = suppressWarnings(as.numeric(ds_raw$INSTANCE))
   )
 
+# visit and visitnum not explicitly specified how to get in the assessment
+# we will use the INSTANCE variable as VISIT for now
+# for visitnum we can take from pharmaversesdtm::ds by VISIT
+
+ds_original <- pharmaversesdtm::ds
+
+# Ensure VISIT values match in both datasets (uppercase)
+ds <- ds %>%
+  mutate(VISIT = toupper(VISIT))
+
+ds <- ds %>%
+  left_join(
+    ds_original %>% select(VISIT, VISITNUM),
+    by = "VISIT",
+    relationship = "many-to-many" 
+  )
+
 cat("Core identifiers (STUDYID/DOMAIN/USUBJID) added.\n\n")
 
 ## ---- Derive DSSEQ -----------------------------------------------------------
@@ -144,7 +161,7 @@ ds <- ds %>%
   select(
     STUDYID, DOMAIN, USUBJID, DSSEQ,
     DSTERM, DSDECOD, DSCAT,
-    #VISITNUM, 
+    VISITNUM, 
     VISIT,
     DSDTC, DSSTDTC, DSSTDY
   )
@@ -152,8 +169,9 @@ ds <- ds %>%
 cat("Final DS dataset assembled with required variables.\n\n")
 
 ## ---- Save Outputs -----------------------------------------------------------
-write.csv(ds, "ds.csv", row.names = FALSE)
-saveRDS(ds, "ds.rds")
+# in outputs folder
+write.csv(ds, "output/ds.csv", row.names = FALSE)
+saveRDS(ds, "output/ds.rds")
 
 cat("Outputs saved:\n")
 cat(" - ds.csv\n")
