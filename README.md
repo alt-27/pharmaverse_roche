@@ -15,7 +15,6 @@ I’ve organized the repository to make it easy to review, follow, and run.
 
 # Repository Structure
 ```
-├── metadata/
 ├── question_1_sdtm/
 ├── question_2_adam/
 ├── question_3_tlg/
