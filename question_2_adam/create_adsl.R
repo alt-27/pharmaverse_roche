@@ -1,4 +1,3 @@
-# question_2_adam/01_create_adsl.R
 # create adsl from pharmaversesdtm domains per provided rules
 
 ## ---- setup ------------------------------------------------------------------
@@ -25,22 +24,23 @@ cat("inputs loaded.\n")
 cat("dm:", nrow(dm), "subjects\n\n")
 
 ## ---- start adsl from dm ------------------------------------------------------
-# start from one record per subject (dm) and derive baseline analysis flags/groups.
-# ittfl:
-#   - "y" if the subject has a non-missing treatment arm assignment (ARM)
-#   - otherwise "n"
-# agegr9 / agegr9n:
-#   - bucket AGE into <18, 18-50, >50
-#   - provide a numeric version for easy ordering/analysis
+# DM domain is used as the basis for ADSL
 adsl <- dm %>%
+  select(-DOMAIN)
+
+# start from one record per subject (dm) and derive baseline analysis flags/groups.
+adsl <- adsl %>%
   mutate(
+    # ITTFL: "y" if non-missing treatment arm assignment (ARM), otherwise "n"
     ITTFL = if_else(!is.na(ARM), "Y", "N"),
+    # bucket AGE into <18, 18-50, >50
     AGEGR9 = case_when(
       is.na(AGE) ~ NA_character_,
       AGE < 18 ~ "<18",
       AGE >= 18 & AGE <= 50 ~ "18 - 50",
       AGE > 50 ~ ">50"
     ),
+    # bucket AGEGR9 into 1 2 and 3
     AGEGR9N = case_when(
       AGEGR9 == "<18" ~ 1,
       AGEGR9 == "18 - 50" ~ 2,
@@ -50,126 +50,107 @@ adsl <- dm %>%
   )
 
 ## ---- derive exposure datetimes from ex ---------------------------------------
-# derive_vars_dtm() converts iso8601 character datetimes (EXSTDTC/EXENDTC) into:
-#   - EXSTDTM / EXENDTM: POSIXct datetime
-#   - EXSTTMF / EXENTMF: imputation flag indicating time imputation (if applied)
-#
-# imputation rules:
-#   - EXSTDTC: impute missing time to start of day (00:00:00) using time_imputation="first"
-#   - EXENDTC: impute missing time to end of day (23:59:59) using time_imputation="last"
+# converts iso8601 character datetimes (EXSTDTC/EXENDTC) into datetime and imputation flags
 ex_ext <- ex %>%
   derive_vars_dtm(
     dtc = EXSTDTC,
     new_vars_prefix = "EXST",
-    time_imputation = "first"
+    time_imputation = "first", # start of day (00:00:00)
+    ignore_seconds_flag = TRUE # ignore missing seconds if hours and minutes (YYYY-MM-DDThh:mm)
   ) %>%
   derive_vars_dtm(
     dtc = EXENDTC,
     new_vars_prefix = "EXEN",
-    time_imputation = "last"
-  ) %>%
-  # spec detail:
-  # if EXSTDTC is present with hh:mm only (YYYY-MM-DDThh:mm), seconds are missing but should
-  # not be treated as "time imputed" for this deliverable; clear the imputation flag in that case.
-  mutate(
-    EXSTTMF = if_else(
-      !is.na(EXSTDTC) & str_detect(EXSTDTC, "T\\d{2}:\\d{2}$"),
-      NA_character_,
-      EXSTTMF
-    )
-  )
+    time_imputation = "last", # end of day (23:59:59)
+    ignore_seconds_flag = TRUE
+  ) 
 
-## ---- keep only valid exposure records ----------------------------------------
-# valid dose definition:
-#   - EXDOSE > 0
-#   - OR EXDOSE == 0 AND EXTRT contains "placebo" (case-insensitive)
-#
-# also require:
-#   - EXSTDTM is non-missing (so ordering by datetime is possible)
-#   - EXSTDTC has at least a complete datepart (YYYY-MM-DD) so the record is usable downstream
-ex_valid <- ex_ext %>%
-  filter(
-    (EXDOSE > 0 |
-       (EXDOSE == 0 & str_detect(toupper(coalesce(EXTRT, "")), "PLACEBO"))) &
-      !is.na(EXSTDTM) &
-      !is.na(EXSTDTC) &
-      str_detect(EXSTDTC, "^\\d{4}-\\d{2}-\\d{2}")
-  )
-
-## ---- derive trtsdtm/trtstmf and trtedtm --------------------------------------
-# merge first/last valid treatment administration datetime back to adsl.
-# ordering:
-#   - EXSTDTM primary sort
-#   - EXSEQ tie-breaker if two doses share the same datetime
-#
-# derived variables:
-#   - TRTSDTM: first valid EXSTDTM
-#   - TRTSTMF: imputation flag for the first dose datetime (if any)
-#   - TRTEDTM: last  valid EXSTDTM (used later for last-alive evidence)
 adsl <- adsl %>%
   derive_vars_merged(
-    dataset_add = ex_valid,
-    by_vars = exprs(STUDYID, USUBJID),
+    dataset_add = ex_ext,
+    # Dose validity: EXDOSE > 0 OR EXDOSE == 0 AND EXTRT contains "placebo" (case-insensitive)
+    filter_add = (EXDOSE > 0 |
+                    (EXDOSE == 0 &
+                       str_detect(EXTRT, "PLACEBO"))) & !is.na(EXSTDTM),
     new_vars = exprs(TRTSDTM = EXSTDTM, TRTSTMF = EXSTTMF),
     order = exprs(EXSTDTM, EXSEQ),
-    mode = "first"
+    mode = "first",
+    by_vars = exprs(STUDYID, USUBJID)
   ) %>%
   derive_vars_merged(
-    dataset_add = ex_valid,
-    by_vars = exprs(STUDYID, USUBJID),
-    new_vars = exprs(TRTEDTM = EXSTDTM),
-    order = exprs(EXSTDTM, EXSEQ),
-    mode = "last"
+    dataset_add = ex_ext,
+    filter_add = (EXDOSE > 0 |
+                    (EXDOSE == 0 &
+                       str_detect(EXTRT, "PLACEBO"))) & !is.na(EXENDTM),
+    new_vars = exprs(TRTEDTM = EXENDTM, TRTETMF = EXENTMF),
+    order = exprs(EXENDTM, EXSEQ),
+    mode = "last",
+    by_vars = exprs(STUDYID, USUBJID)
   )
 
-## ---- derive lstavldt (last alive evidence) -----------------------------------
-# define the "last alive date" as the maximum (latest) date among these sources:
-#   (1) last complete vs date with any usable result
-#       - require VSDTC has a complete datepart
-#       - require VSSTRESN and VSSTRESC are not BOTH missing
-#   (2) last complete ae onset date (AESTDTC datepart)
-#   (3) last complete ds disposition date (DSSTDTC datepart)
-#   (4) last valid treatment administration date (datepart of TRTEDTM)
-#
-# note: we take dateparts (ymd) for cross-domain comparability.
-
-# (1) last qualifying vital signs date
-vs_last <- vs %>%
-  filter(
-    !is.na(VSDTC) & str_detect(VSDTC, "^\\d{4}-\\d{2}-\\d{2}"),
-    !(is.na(VSSTRESN) & is.na(VSSTRESC))
-  ) %>%
-  mutate(VSDT = ymd(substr(VSDTC, 1, 10))) %>%
-  group_by(STUDYID, USUBJID) %>%
-  summarise(LAST_VS = max(VSDT, na.rm = TRUE), .groups = "drop")
-
-# (2) last complete AE onset date
-ae_last <- ae %>%
-  filter(!is.na(AESTDTC) & str_detect(AESTDTC, "^\\d{4}-\\d{2}-\\d{2}")) %>%
-  mutate(AESTDT = ymd(substr(AESTDTC, 1, 10))) %>%
-  group_by(STUDYID, USUBJID) %>%
-  summarise(LAST_AE = max(AESTDT, na.rm = TRUE), .groups = "drop")
-
-# (3) last complete disposition date
-ds_last <- ds %>%
-  filter(!is.na(DSSTDTC) & str_detect(DSSTDTC, "^\\d{4}-\\d{2}-\\d{2}")) %>%
-  mutate(DSSTDT = ymd(substr(DSSTDTC, 1, 10))) %>%
-  group_by(STUDYID, USUBJID) %>%
-  summarise(LAST_DS = max(DSSTDT, na.rm = TRUE), .groups = "drop")
-
-# combine evidence and compute the maximum per subject
+# derive date variables for TRTSDT and TRTEDT
 adsl <- adsl %>%
-  left_join(vs_last, by = c("STUDYID", "USUBJID")) %>%
-  left_join(ae_last, by = c("STUDYID", "USUBJID")) %>%
-  left_join(ds_last, by = c("STUDYID", "USUBJID")) %>%
-  mutate(
-    # convert TRTEDTM datetime to a date for max() comparison with other sources
-    LAST_TRT = as.Date(TRTEDTM)
-  ) %>%
-  rowwise() %>%
-  mutate(LSTAVLDT = max(c(LAST_VS, LAST_AE, LAST_DS, LAST_TRT), na.rm = TRUE)) %>%
-  ungroup() %>%
-  select(-LAST_VS, -LAST_AE, -LAST_DS, -LAST_TRT)
+  derive_vars_dtm_to_dt(source_vars = exprs(TRTSDTM, TRTEDTM))
+
+
+## ---- derive lstavldt (last alive evidence) -----------------------------------
+adsl <- adsl %>%
+  derive_vars_extreme_event(
+    by_vars = exprs(STUDYID, USUBJID),
+    
+    events = list(
+      # (1) Last complete VS date with a valid test result
+      event(
+        dataset_name = "vs",
+        order = exprs(VSDTC, VSSEQ),
+        condition =
+          !is.na(VSDTC) &
+          # valid test result: not both missing
+          !(is.na(VSSTRESN) & is.na(VSSTRESC)),
+        set_values_to = exprs(
+          LSTAVLDT = convert_dtc_to_dt(VSDTC, highest_imputation = "D"), # datepart present & complete
+          seq = VSSEQ
+        )
+      ),
+      
+      # (2) Last complete AE onset date
+      event(
+        dataset_name = "ae",
+        order = exprs(AESTDTC, AESEQ),
+        condition = !is.na(AESTDTC),
+        set_values_to = exprs(
+          LSTAVLDT = convert_dtc_to_dt(AESTDTC, highest_imputation = "M"), 
+          # highest imputation = M to avoid omitting cases where date is only a year
+        )
+      ),
+      
+      # (3) Last complete disposition date
+      event(
+        dataset_name = "ds",
+        order = exprs(DSSTDTC, DSSEQ),
+        condition = !is.na(DSSTDTC),
+        set_values_to = exprs(
+          LSTAVLDT = convert_dtc_to_dt(DSSTDTC, highest_imputation = "D"),
+          seq = DSSEQ
+        )
+      ),
+      
+      # (4) Last date of treatment administration with valid dose
+      # Uses ADSL.TRTEDTM which filtered valid dose records
+      event(
+        dataset_name = "adsl",
+        condition = !is.na(TRTEDT),
+        set_values_to = exprs(LSTAVLDT = TRTEDT, seq = 0)
+      )
+    ),
+    
+    source_datasets = list(vs = vs, ae = ae, ds = ds, adsl = adsl),
+    tmp_event_nr_var = event_nr,
+    # order so the "last" event is the max date (then tie-break)
+    order = exprs(LSTAVLDT, seq, event_nr),
+    mode = "last",
+    new_vars = exprs(LSTAVLDT)
+  )
 
 ## ---- save outputs ------------------------------------------------------------
 # write analysis outputs to a dedicated folder to keep the project tidy
