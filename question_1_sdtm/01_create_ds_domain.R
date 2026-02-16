@@ -50,7 +50,6 @@ ds <- ds %>%
 cat("DSTERM derived from IT.DSTERM.\n\n")
 
 ## ---- DSSTDTC: actual disposition date ---------------------------------------
-
 ds <- ds %>%
   assign_datetime(
     raw_dat = ds_raw,
@@ -61,6 +60,7 @@ ds <- ds %>%
   )
 
 ## ---- DSDTC: collection date+time to ISO8601 ---------------------------------
+# combine IT.DSSTDAT and IT.DSTMCOL, with time imputation if time is missing.
 ds <- ds %>%
   mutate(
     DSDTC = {
@@ -79,6 +79,7 @@ ds <- ds %>%
 
 
 ## ---- DSDECOD and DSCAT (spec logic) -----------------------------------------
+# derive DSDECOD using OTHERSP if not blank, otherwise IT.DSDECOD
 ds <- ds %>%
   mutate(
     DSDECOD = ifelse(
@@ -90,6 +91,7 @@ ds <- ds %>%
 
 cat("DSDECOD derived using OTHERSP/IT.DSDECOD logic.\n")
 
+# derive DSCAT based on DSDECOD values (RANDOMIZED, DISPOSITION EVENT, OTHER EVENT) 
 ds <- ds %>%
   mutate(
     DSDECOD_CLEAN = toupper(trimws(as.character(ds_raw$`IT.DSDECOD`))),
@@ -104,6 +106,7 @@ ds <- ds %>%
 
 cat("DSCAT derived using IT.DSDECOD == RANDOMIZED rule.\n\n")
 
+# renaming and reformatting variables to match spec and adding core identifiers
 ds <- ds %>%
   mutate(
     STUDYID  = as.character(ds_raw$STUDY),
@@ -161,15 +164,13 @@ ds <- ds %>%
   select(
     STUDYID, DOMAIN, USUBJID, DSSEQ,
     DSTERM, DSDECOD, DSCAT,
-    VISITNUM, 
-    VISIT,
+    VISITNUM, VISIT,
     DSDTC, DSSTDTC, DSSTDY
   )
 
 cat("Final DS dataset assembled with required variables.\n\n")
 
 ## ---- Save Outputs -----------------------------------------------------------
-# in outputs folder
 write.csv(ds, "output/ds.csv", row.names = FALSE)
 saveRDS(ds, "output/ds.rds")
 
