@@ -96,7 +96,42 @@ Script: `02_create_visualizations.R`
 - Added 95% Clopper–Pearson confidence intervals
 - Output: `top10_ae_plot.png`
 
-# Next Steps
-I’ll be implementing the GenAI Clinical Data Assistant (LLM & LangChain) next to complete the bonus Python portion of the assessment. Please be patient and stay tuned!
+## Question 4 – GenAI Clinical Data Assistant
+Folder: [question_4_genai](question_4_genai)
 
+Script: `GenAI.py`
+
+For this question, I built a Generative AI–style clinical data assistant in Python that translates natural language questions into structured Pandas queries on the `adae` dataset.
+
+The goal was to simulate how a clinical safety reviewer could ask free-text questions without needing to know the underlying dataset variable names.
+
+I used the ADAE dataset from Pharmaverse (`pharmaversesdtm::ae`) and defined a schema describing the relevant variables:
+- `USUBJID` – Unique subject identifier
+- `AETERM` – Adverse event term (e.g., Headache, Fatigue)
+- `AESOC` – Body system / System Organ Class (e.g., Skin, Cardiac, Eye disorders)
+- `AESEV` – Severity / intensity (e.g., MILD, MODERATE, SEVERE)
+
+The assistant follows a structured workflow:
+1. Accepts a natural language question
+2. Interprets the question using the dataset schema
+3. Maps the question to the appropriate ADAE variable
+4. Applies the corresponding Pandas filter dynamically
+5. Returns the number of unique subjects and their USUBJIDs
+
+A mock LLM implementation is used to simulate structured intent parsing, ensuring the solution follows the same Prompt → Parse → Execute architecture expected when using a real LLM, without requiring an external API key.
+
+Overall, without hard-coding specific column mappings, the assistant can dynamically map questions such as:
+- Severity-related questions → `AESEV`
+- Condition-related questions → `AETERM`
+- Body system–related questions → `AESOC`
+
+The Console output can then show the parsed query structure and matching subject IDs.
+
+Example output:
+```
+Q: List the subjects with cardiac disorders.
+Parsed: {'target_column': 'AESOC', 'filter_value': 'CARDIAC DISORDERS'}
+Unique subjects: 44
+USUBJID: ['01-701-1023', '01-701-1047', ...]
+```
 
