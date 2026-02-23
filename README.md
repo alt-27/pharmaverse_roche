@@ -18,6 +18,7 @@ I’ve organized the repository to make it easy to review, follow, and run.
 ├── question_1_sdtm/
 ├── question_2_adam/
 ├── question_3_tlg/
+├── question_4_genai/
 └── README.md
 ```
 
@@ -89,12 +90,16 @@ Script: `02_create_visualizations.R`
 
 *Plot 1 – AE Severity Distribution*
 - Bar chart grouped by treatment arm and factored by AE severity
-- Output: `ae_severity_plot.png`
+
+<img width="600" height="400" alt="plot1_severity_distribution" src="https://github.com/user-attachments/assets/c2cae842-daf0-43b3-87d2-f66186f0af83" />
+
 
 *Plot 2 – Top 10 Most Frequent AEs*
 - Based on top incidence rates of `AETERM`
 - Added 95% Clopper–Pearson confidence intervals
-- Output: `top10_ae_plot.png`
+
+<img width="600" height="400" alt="plot2_top10AE" src="https://github.com/user-attachments/assets/b755285e-a679-4df8-9c04-cd9eccb624ae" />
+
 
 ## Question 4 – GenAI Clinical Data Assistant
 Folder: [question_4_genai](question_4_genai)
